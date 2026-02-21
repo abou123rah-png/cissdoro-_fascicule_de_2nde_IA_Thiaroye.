@@ -18,6 +18,7 @@ import {
   Users,
   Heart,
   Sparkles,
+  Download,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -125,6 +126,17 @@ export default function Home() {
               <p className="text-xs text-slate-500 dark:text-slate-400">Lycée de Thiaroye</p>
             </div>
 
+            {/* Spiritual Quote */}
+            <div className="mb-4 p-4 bg-gradient-to-br from-indigo-50/50 to-blue-50/50 dark:from-slate-800/50 dark:to-slate-900/50 rounded-xl border border-blue-100 dark:border-slate-800 relative overflow-hidden group transition-all duration-500 hover:shadow-md">
+              <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+                <Sparkles className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <p className="text-sm italic font-medium text-slate-700 dark:text-slate-300 leading-relaxed relative z-10 text-center">
+                « La science est une lumière qu’Allah met dans le cœur »
+              </p>
+              <div className="mt-2 w-12 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-400 mx-auto rounded-full"></div>
+            </div>
+
             {/* Quick Navigation */}
             <div className="mb-4">
               <h3 className="font-semibold text-slate-600 dark:text-slate-400 mb-2 text-sm">Navigation Rapide</h3>
@@ -148,7 +160,22 @@ export default function Home() {
               </div>
             </div>
 
-            <Separator className="my-3 bg-blue-100" />
+            {/* Full PDF Download */}
+            <div className="mb-4">
+              <Button
+                variant="default"
+                size="sm"
+                asChild
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-md gap-2"
+              >
+                <a href="/fascicule_pdfs/fascicule_complet.pdf" download="Fascicule_Sciences_Physiques_Complet.pdf">
+                  <Download className="h-4 w-4" />
+                  Télécharger le PDF complet
+                </a>
+              </Button>
+            </div>
+
+            <Separator className="my-3 bg-blue-100 dark:bg-slate-800" />
 
             {/* Chemistry */}
             <div className="mb-4">
@@ -336,6 +363,17 @@ export default function Home() {
                     Page {selectedPage} du Fascicule
                   </CardTitle>
                   <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      asChild
+                      className="text-white hover:bg-white/20 h-8 gap-2 mr-2"
+                    >
+                      <a href={`/fascicule_pdfs/page_${selectedPage}.pdf`} download={`Page_${selectedPage}_Sciences_Physiques.pdf`}>
+                        <Download className="h-4 w-4" />
+                        <span className="hidden sm:inline">PDF</span>
+                      </a>
+                    </Button>
                     <Button
                       variant="ghost"
                       size="icon"
