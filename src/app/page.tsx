@@ -411,26 +411,24 @@ export default function Home() {
 
               {/* Page Quick Select */}
               <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5">
-                {Array.from({ length: 25 }, (_, i) => {
-                  const startPage = Math.max(1, selectedPage - 12 + i);
-                  if (startPage > 120) return null;
-                  return (
+                {Array.from({ length: 25 }, (_, i) => selectedPage - 12 + i)
+                  .filter(page => page >= 1 && page <= 120)
+                  .map((pageNumber) => (
                     <Button
-                      key={startPage}
-                      variant={startPage === selectedPage ? 'default' : 'outline'}
+                      key={pageNumber}
+                      variant={pageNumber === selectedPage ? 'default' : 'outline'}
                       size="sm"
-                      onClick={() => goToPage(startPage)}
+                      onClick={() => goToPage(pageNumber)}
                       className={cn(
                         "w-9 h-9 p-0 text-xs font-medium transition-all",
-                        startPage === selectedPage 
+                        pageNumber === selectedPage 
                           ? "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700" 
                           : "border-slate-300 hover:border-blue-400 hover:bg-blue-50"
                       )}
                     >
-                      {startPage}
+                      {pageNumber}
                     </Button>
-                  );
-                })}
+                  ))}
               </div>
             </>
           )}
