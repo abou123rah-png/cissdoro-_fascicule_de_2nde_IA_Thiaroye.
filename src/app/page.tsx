@@ -32,17 +32,33 @@ const chapters = chapterDefinitions;
 
 export default function Home() {
   const [selectedPage, setSelectedPage] = useState(1);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Default to closed on all screens, will be opened by useEffect for large screens
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [imageZoom, setImageZoom] = useState(1);
   const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+
+    // Set initial state
+    handleResize();
+
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 500);
     };
+
+    window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const scrollToTop = () => {
@@ -54,6 +70,10 @@ export default function Home() {
       setSelectedPage(page);
       setShowWelcome(false);
       setImageZoom(1);
+      // Close sidebar on mobile after selection
+      if (window.innerWidth < 1024) {
+        setSidebarOpen(false);
+      }
     }
   };
 
@@ -88,19 +108,19 @@ export default function Home() {
                 <Atom className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+                <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent truncate max-w-[150px] sm:max-w-none">
                   Sciences Physiques
                 </h1>
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Fascicule Numérique Interactif</p>
+                <p className="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">Fascicule Numérique</p>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <ModeToggle />
-            <Badge variant="secondary" className="text-sm py-1.5 px-4 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
-              <BookOpen className="h-3 w-3 mr-1" />
-              Page {selectedPage} / 120
+            <Badge variant="secondary" className="text-xs sm:text-sm py-1 sm:py-1.5 px-2 sm:px-4 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 whitespace-nowrap">
+              <BookOpen className="h-3 w-3 mr-1 hidden sm:inline" />
+              P. {selectedPage}
             </Badge>
           </div>
         </div>
@@ -396,7 +416,7 @@ export default function Home() {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="p-4 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 flex justify-center overflow-auto min-h-[700px]">
+              <CardContent className="p-2 sm:p-4 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 flex justify-center overflow-auto min-h-[400px] sm:min-h-[700px]">
                 <motion.img
                   key={selectedPage}
                   initial={{ opacity: 0 }}
@@ -414,37 +434,37 @@ export default function Home() {
           {/* Navigation */}
           {!showWelcome && (
             <>
-              <div className="flex items-center justify-between bg-white dark:bg-slate-900 rounded-xl shadow-lg p-4 border border-slate-200 dark:border-slate-800">
+              <div className="flex flex-col sm:flex-row items-center justify-between bg-white dark:bg-slate-900 rounded-xl shadow-lg p-3 sm:p-4 border border-slate-200 dark:border-slate-800 gap-4">
                 <Button
                   variant="outline"
                   onClick={goToPreviousPage}
                   disabled={selectedPage <= 1}
-                  className="gap-2 border-blue-200 hover:bg-blue-50 hover:border-blue-300"
+                  className="w-full sm:w-auto gap-2 border-blue-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-300 dark:text-slate-300 h-10"
                 >
                   <ChevronLeft className="h-4 w-4" />
-                  Précédent
+                  <span className="sm:inline">Précédent</span>
                 </Button>
 
-                <div className="flex items-center gap-2">
-                  <span className="text-sm text-slate-500">Aller à la page :</span>
+                <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/50 px-4 py-2 rounded-lg border border-slate-100 dark:border-slate-700">
+                  <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">Page</span>
                   <input
                     type="number"
                     value={selectedPage}
                     onChange={(e) => goToPage(parseInt(e.target.value) || 1)}
-                    className="w-16 px-2 py-1.5 border border-slate-300 rounded-lg text-center text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-14 h-8 px-1 border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-700 text-center text-sm font-bold focus:ring-2 focus:ring-blue-500"
                     min={1}
                     max={120}
                   />
-                  <span className="text-sm text-slate-500">/ 120</span>
+                  <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">/ 120</span>
                 </div>
 
                 <Button
                   variant="outline"
                   onClick={goToNextPage}
                   disabled={selectedPage >= 120}
-                  className="gap-2 border-blue-200 hover:bg-blue-50 hover:border-blue-300"
+                  className="w-full sm:w-auto gap-2 border-blue-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-800 hover:border-blue-300 dark:text-slate-300 h-10"
                 >
-                  Suivant
+                  <span className="sm:inline">Suivant</span>
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </div>
