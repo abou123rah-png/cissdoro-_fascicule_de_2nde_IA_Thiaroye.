@@ -25,6 +25,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { chapterDefinitions } from '@/lib/fascicule-data';
+import { ModeToggle } from '@/components/mode-toggle';
 
 const chapters = chapterDefinitions;
 
@@ -68,9 +69,9 @@ export default function Home() {
   const currentChapter = getCurrentChapter();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950 transition-colors duration-300">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg border-b border-blue-100">
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm shadow-lg border-b border-blue-100 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Button
@@ -86,16 +87,17 @@ export default function Home() {
                 <Atom className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 bg-clip-text text-transparent">
+                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
                   Sciences Physiques
                 </h1>
-                <p className="text-xs text-slate-500 font-medium">Fascicule Numérique Interactif</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Fascicule Numérique Interactif</p>
               </div>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-4">
-            <Badge variant="secondary" className="text-sm py-1.5 px-4 bg-blue-100 text-blue-800 border border-blue-200">
+            <ModeToggle />
+            <Badge variant="secondary" className="text-sm py-1.5 px-4 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
               <BookOpen className="h-3 w-3 mr-1" />
               Page {selectedPage} / 120
             </Badge>
@@ -107,31 +109,31 @@ export default function Home() {
         {/* Sidebar */}
         <aside
           className={cn(
-            'fixed lg:sticky top-[65px] left-0 z-40 h-[calc(100vh-65px)] w-72 bg-white/95 backdrop-blur-sm border-r border-blue-100 transition-transform duration-300 lg:translate-x-0 overflow-y-auto shadow-xl lg:shadow-none',
+            'fixed lg:sticky top-[65px] left-0 z-40 h-[calc(100vh-65px)] w-72 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-r border-blue-100 dark:border-slate-800 transition-transform duration-300 lg:translate-x-0 overflow-y-auto shadow-xl lg:shadow-none',
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           )}
         >
           <div className="p-4">
             {/* Concepteur */}
-            <div className="mb-4 p-3 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-200">
+            <div className="mb-4 p-3 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-xl border border-amber-200 dark:border-amber-900/30">
               <div className="flex items-center gap-2 mb-1">
-                <GraduationCap className="h-4 w-4 text-amber-600" />
-                <span className="text-xs font-semibold text-amber-700 uppercase tracking-wide">Conception</span>
+                <GraduationCap className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                <span className="text-xs font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-wide">Conception</span>
               </div>
-              <p className="text-sm font-bold text-slate-700">M. Doro Cissé</p>
-              <p className="text-xs text-slate-500">Prof. Sciences Physiques</p>
-              <p className="text-xs text-slate-500">Lycée de Thiaroye</p>
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-300">M. Doro Cissé</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Prof. Sciences Physiques</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Lycée de Thiaroye</p>
             </div>
 
             {/* Quick Navigation */}
             <div className="mb-4">
-              <h3 className="font-semibold text-slate-600 mb-2 text-sm">Navigation Rapide</h3>
+              <h3 className="font-semibold text-slate-600 dark:text-slate-400 mb-2 text-sm">Navigation Rapide</h3>
               <div className="grid grid-cols-2 gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => { goToPage(1); setShowWelcome(false); }}
-                  className="text-xs border-blue-200 hover:bg-blue-50"
+                  className="text-xs border-blue-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-800 dark:text-slate-300"
                 >
                   Couverture
                 </Button>
@@ -139,7 +141,7 @@ export default function Home() {
                   variant="outline"
                   size="sm"
                   onClick={() => { goToPage(2); setShowWelcome(false); }}
-                  className="text-xs border-blue-200 hover:bg-blue-50"
+                  className="text-xs border-blue-200 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-slate-800 dark:text-slate-300"
                 >
                   Sommaire
                 </Button>
@@ -164,8 +166,8 @@ export default function Home() {
                     className={cn(
                       'w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200',
                       currentChapter?.id === chapter.id
-                        ? 'bg-gradient-to-r from-emerald-100 to-emerald-50 text-emerald-800 font-semibold shadow-sm border-l-4 border-emerald-500'
-                        : 'hover:bg-emerald-50 text-slate-600 hover:text-emerald-700'
+                        ? 'bg-gradient-to-r from-emerald-100 to-emerald-50 dark:from-emerald-900/30 dark:to-emerald-800/20 text-emerald-800 dark:text-emerald-300 font-semibold shadow-sm border-l-4 border-emerald-500'
+                        : 'hover:bg-emerald-50 dark:hover:bg-emerald-900/20 text-slate-600 dark:text-slate-400 hover:text-emerald-700 dark:hover:text-emerald-300'
                     )}
                   >
                     <span className="font-mono text-xs mr-1 opacity-70">{chapter.number}</span>
@@ -193,8 +195,8 @@ export default function Home() {
                     className={cn(
                       'w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-200',
                       currentChapter?.id === chapter.id
-                        ? 'bg-gradient-to-r from-blue-100 to-blue-50 text-blue-800 font-semibold shadow-sm border-l-4 border-blue-500'
-                        : 'hover:bg-blue-50 text-slate-600 hover:text-blue-700'
+                        ? 'bg-gradient-to-r from-blue-100 to-blue-50 dark:from-blue-900/30 dark:to-blue-800/20 text-blue-800 dark:text-blue-300 font-semibold shadow-sm border-l-4 border-blue-500'
+                        : 'hover:bg-blue-50 dark:hover:bg-blue-900/20 text-slate-600 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300'
                     )}
                   >
                     <span className="font-mono text-xs mr-1 opacity-70">{chapter.number}</span>
@@ -215,14 +217,14 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               className="mb-6"
             >
-              <Card className="overflow-hidden border-0 shadow-2xl bg-gradient-to-br from-white via-blue-50 to-indigo-50">
+              <Card className="overflow-hidden border-0 shadow-2xl bg-gradient-to-br from-white via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800">
                 <div className="relative">
                   {/* Decorative background */}
                   <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute -top-20 -right-20 w-60 h-60 bg-blue-200 rounded-full opacity-20 blur-3xl"></div>
                     <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-indigo-200 rounded-full opacity-20 blur-3xl"></div>
                   </div>
-                  
+
                   <div className="relative p-6 lg:p-8">
                     {/* Title */}
                     <div className="text-center mb-6">
@@ -236,44 +238,44 @@ export default function Home() {
                         Fascicule de Sciences Physiques
                         <Sparkles className="h-4 w-4" />
                       </motion.div>
-                      
-                      <h2 className="text-2xl lg:text-3xl font-bold text-slate-800 mb-2">
+
+                      <h2 className="text-2xl lg:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-2">
                         Bienvenue sur votre espace d'apprentissage
                       </h2>
-                      <p className="text-slate-600 max-w-2xl mx-auto">
-                        Un outil pédagogique numérique interactif conçu pour accompagner 
+                      <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        Un outil pédagogique numérique interactif conçu pour accompagner
                         les élèves et enseignants dans l'étude des Sciences Physiques.
                       </p>
                     </div>
 
                     {/* Features */}
                     <div className="grid md:grid-cols-3 gap-4 mb-6">
-                      <div className="p-4 bg-white/80 rounded-xl border border-blue-100 shadow-sm">
+                      <div className="p-4 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-blue-100 dark:border-slate-700 shadow-sm transition-colors overflow-hidden">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="p-2 bg-emerald-100 rounded-lg">
-                            <FlaskConical className="h-5 w-5 text-emerald-600" />
+                          <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
+                            <FlaskConical className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                           </div>
-                          <h3 className="font-semibold text-slate-700">Chimie</h3>
+                          <h3 className="font-semibold text-slate-700 dark:text-slate-200 text-sm">Chimie</h3>
                         </div>
-                        <p className="text-sm text-slate-500">10 chapitres avec exercices corrigés</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">10 chapitres avec exercices corrigés</p>
                       </div>
-                      <div className="p-4 bg-white/80 rounded-xl border border-blue-100 shadow-sm">
+                      <div className="p-4 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-blue-100 dark:border-slate-700 shadow-sm transition-colors overflow-hidden">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="p-2 bg-blue-100 rounded-lg">
-                            <Cpu className="h-5 w-5 text-blue-600" />
+                          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                            <Cpu className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                           </div>
-                          <h3 className="font-semibold text-slate-700">Physique</h3>
+                          <h3 className="font-semibold text-slate-700 dark:text-slate-200 text-sm">Physique</h3>
                         </div>
-                        <p className="text-sm text-slate-500">14 chapitres avec exercices corrigés</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">14 chapitres avec exercices corrigés</p>
                       </div>
-                      <div className="p-4 bg-white/80 rounded-xl border border-blue-100 shadow-sm">
+                      <div className="p-4 bg-white/80 dark:bg-slate-800/80 rounded-xl border border-blue-100 dark:border-slate-700 shadow-sm transition-colors overflow-hidden">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="p-2 bg-amber-100 rounded-lg">
-                            <BookOpen className="h-5 w-5 text-amber-600" />
+                          <div className="p-2 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
+                            <BookOpen className="h-5 w-5 text-amber-600 dark:text-amber-400" />
                           </div>
-                          <h3 className="font-semibold text-slate-700">120 Pages</h3>
+                          <h3 className="font-semibold text-slate-700 dark:text-slate-200 text-sm">120 Pages</h3>
                         </div>
-                        <p className="text-sm text-slate-500">Contenu complet du programme</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">Contenu complet du programme</p>
                       </div>
                     </div>
 
@@ -289,7 +291,7 @@ export default function Home() {
                       <Button
                         variant="outline"
                         onClick={() => { goToPage(2); setShowWelcome(false); }}
-                        className="border-blue-300 text-blue-700 hover:bg-blue-50 px-6"
+                        className="border-blue-300 dark:border-slate-700 text-blue-700 dark:text-blue-300 hover:bg-blue-50 dark:hover:bg-slate-800 px-6"
                       >
                         Voir le sommaire
                       </Button>
@@ -307,30 +309,30 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               className={cn(
                 "mb-4 p-4 rounded-xl shadow-md",
-                currentChapter.part === 'chimie' 
-                  ? "bg-gradient-to-r from-emerald-50 to-emerald-100 border-l-4 border-emerald-500" 
-                  : "bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500"
+                currentChapter.part === 'chimie'
+                  ? "bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-900/20 dark:to-emerald-800/30 border-l-4 border-emerald-500"
+                  : "bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/30 border-l-4 border-blue-500"
               )}
             >
               <div className="flex items-center gap-3">
                 <Badge className={cn(
-                  "text-white shadow-md",
+                  "text-white shadow-md border-0",
                   currentChapter.part === 'chimie' ? "bg-emerald-600" : "bg-blue-600"
                 )}>
                   Chapitre {currentChapter.number}
                 </Badge>
-                <span className="font-bold text-lg text-slate-800">{currentChapter.title}</span>
+                <span className="font-bold text-lg text-slate-800 dark:text-slate-200">{currentChapter.title}</span>
               </div>
             </motion.div>
           )}
 
           {/* Page Display */}
           {!showWelcome && (
-            <Card className="shadow-2xl border-0 overflow-hidden mb-4">
-              <CardHeader className="bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 text-white py-3">
+            <Card className="shadow-2xl border-0 overflow-hidden mb-4 dark:bg-slate-900">
+              <CardHeader className="bg-gradient-to-r from-slate-800 via-slate-700 to-slate-800 dark:from-slate-950 dark:to-slate-900 text-white py-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base flex items-center gap-2">
-                    <BookOpen className="h-5 w-5" />
+                    <BookOpen className="h-5 w-5 text-blue-400" />
                     Page {selectedPage} du Fascicule
                   </CardTitle>
                   <div className="flex items-center gap-2">
@@ -356,7 +358,7 @@ export default function Home() {
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="p-4 bg-gradient-to-br from-slate-100 to-slate-200 flex justify-center overflow-auto min-h-[700px]">
+              <CardContent className="p-4 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 flex justify-center overflow-auto min-h-[700px]">
                 <motion.img
                   key={selectedPage}
                   initial={{ opacity: 0 }}
@@ -364,7 +366,7 @@ export default function Home() {
                   transition={{ duration: 0.3 }}
                   src={`/fascicule_images/page_${selectedPage}.png`}
                   alt={`Page ${selectedPage} du fascicule de Sciences Physiques`}
-                  className="max-w-full h-auto shadow-2xl rounded-lg border border-slate-300"
+                  className="max-w-full h-auto shadow-2xl rounded-lg border border-slate-300 dark:border-slate-800"
                   style={{ transform: `scale(${imageZoom})`, transformOrigin: 'top center' }}
                 />
               </CardContent>
@@ -374,7 +376,7 @@ export default function Home() {
           {/* Navigation */}
           {!showWelcome && (
             <>
-              <div className="flex items-center justify-between bg-white rounded-xl shadow-lg p-4 border border-slate-200">
+              <div className="flex items-center justify-between bg-white dark:bg-slate-900 rounded-xl shadow-lg p-4 border border-slate-200 dark:border-slate-800">
                 <Button
                   variant="outline"
                   onClick={goToPreviousPage}
@@ -384,7 +386,7 @@ export default function Home() {
                   <ChevronLeft className="h-4 w-4" />
                   Précédent
                 </Button>
-                
+
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-slate-500">Aller à la page :</span>
                   <input
@@ -421,9 +423,9 @@ export default function Home() {
                       onClick={() => goToPage(pageNumber)}
                       className={cn(
                         "w-9 h-9 p-0 text-xs font-medium transition-all",
-                        pageNumber === selectedPage 
-                          ? "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700" 
-                          : "border-slate-300 hover:border-blue-400 hover:bg-blue-50"
+                        pageNumber === selectedPage
+                          ? "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                          : "border-slate-300 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 dark:text-slate-300"
                       )}
                     >
                       {pageNumber}
@@ -434,8 +436,8 @@ export default function Home() {
           )}
 
           {/* Footer */}
-          <footer className="mt-10 pt-8 border-t border-slate-200">
-            <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-900 rounded-2xl p-6 lg:p-8 text-white shadow-2xl">
+          <footer className="mt-10 pt-8 border-t border-slate-200 dark:border-slate-800">
+            <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-900 dark:from-slate-950 dark:via-indigo-950 dark:to-slate-950 rounded-2xl p-6 lg:p-8 text-white shadow-2xl">
               <div className="max-w-4xl mx-auto text-center">
                 {/* Logo & Title */}
                 <div className="flex items-center justify-center gap-3 mb-4">
@@ -476,9 +478,9 @@ export default function Home() {
                   Les élèves et enseignants de Sciences Physiques
                 </p>
                 <p className="text-sm text-blue-300 max-w-xl mx-auto">
-                  Cet outil pédagogique numérique a été conçu avec passion pour faciliter 
-                  l'apprentissage et l'enseignement des Sciences Physiques. 
-                  Il constitue un support de qualité pour accompagner les apprenants 
+                  Cet outil pédagogique numérique a été conçu avec passion pour faciliter
+                  l'apprentissage et l'enseignement des Sciences Physiques.
+                  Il constitue un support de qualité pour accompagner les apprenants
                   dans leur parcours académique.
                 </p>
 
