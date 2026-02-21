@@ -139,3 +139,4 @@ This scaffold includes a comprehensive set of modern web development tools:
 ---
 
 Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+# cissdoro-_fascicule_de_2nde_IA_Thiaroye.
